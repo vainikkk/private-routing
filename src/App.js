@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Link, Switch, Route, withRouter } from 'react-router-dom'
+import Public from './Routes/Public'
+import Login from './Routes/Login';
+import Protected from './Routes/Protected';
+import PrivateRoute from './Routes/PrivateRoute'
+import Logout from './Routes/Logout';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='navigation'>
+        <div className="nav">
+          <Link to='/public'>Public Page</Link>
+        </div>
+        <div className="nav">
+          <Link to='/Protected'>Protected Page</Link>
+        </div>
+        {localStorage.getItem('token') ? ( 
+          <div className="nav-right">
+            <Link to='/logout'>Logout</Link>
+          </div>
+          ) : (
+          <div className="nav-right">
+            <Link to='/login'>Login</Link>
+          </div>
+          ) 
+        }
+      </div>
+      <div className="body">
+        <Switch>
+            <Route path='/public' component={Public} />
+            <PrivateRoute path='/protected' ><Protected /></PrivateRoute>
+            <Route path='/login' component={Login} />
+            <Route path='/logout'>{Logout}</Route>
+        </Switch>        
+      </div>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);

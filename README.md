@@ -1,3 +1,10 @@
+Remove all React-redux in project after we remove that's work properly 
+this app dosn't support redux i used only localstorage for storing data 
+i try to convert localstorage to state using redux
+if i used state in normal case in this case i can't access lifecycle in functional component
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
